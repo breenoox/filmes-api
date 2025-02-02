@@ -8,3 +8,6 @@ Técnologias utilizadas:
 - AJAX
 - Bootstrap
 - SQLite
+
+## Fotos do projeto
+![image](https://github.com/user-attachments/assets/24e6eebc-3b86-43e8-82b7-56684f14097d)

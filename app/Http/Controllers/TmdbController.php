@@ -7,43 +7,22 @@ use Illuminate\Http\Request;
 
 class TmdbController extends Controller
 {
-    public function index(Request $request, TmdbService $tmdbService)
+
+    public function listagemFilmes(TmdbService $tmdbService,Request $request)
     {
         try {
-            $pagina = $request->query('page', 1);
+            $pagina = $request->input('pagina', 1);
+            $idGenero = $request->input('genero');
+            $palavraFilme = $request->input('palavra');
 
-            $data = $tmdbService->listaFilmes($pagina);
+            $data = $tmdbService->filtrarFilme($idGenero, $palavraFilme, $pagina);
             return response()->json($data);
             
-        } catch (\Exception $e) {
-
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-
-    public function detalhesFilme($id, TmdbService $tmdbService)
-    {
-        try {
-            $data = $tmdbService->detalhesFilme($id);
-            return view('detalhes', compact('data'));
-
-        } catch (\Exception $e) {
-            return view('erro', ['error' => $e->getMessage()]);
-        }
-    }
-
-    public function procurarFilme($palavra, TmdbService $tmdbService)
-    {
-        try {
-            $data = $tmdbService->procurarFilme($palavra);
-            return response()->json($data); 
-
         } catch(\Exception $e) {
             return view('erro', ['error' => $e->getMessage()]);
         }
-
     }
-
+    
     public function retornaGeneros(TmdbService $tmdbService)
     {
         try {
